@@ -1,2 +1,2 @@
 # Leaguea-of-oop
-League of oop
+First stage of the project
