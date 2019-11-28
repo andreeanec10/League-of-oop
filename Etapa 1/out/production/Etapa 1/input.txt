@@ -1,0 +1,4 @@
+3 3
+V W D
+D V W
+W L V
