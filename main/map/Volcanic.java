@@ -1,0 +1,24 @@
+package main.map;
+
+public final class Volcanic extends Lands {
+   // public abstract float givesboost(Pyromancer pyromancer);
+    private char name = 'V';
+    private int noplayers = 0;
+
+    public char getName() {
+        return name;
+    }
+
+    public void addCharactersIn() {
+        noplayers += 1;
+    }
+
+    public void reset() {
+        noplayers = 0;
+    }
+
+    public int getNoplayers() {
+        return noplayers;
+    }
+
+}
