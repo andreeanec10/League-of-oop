@@ -51,6 +51,11 @@ public final class Wizard extends Character {
     }
 
     @Override
+    public int attack(Pyromancer pyromancer, char c) {
+        return 0;
+    }
+
+    @Override
     public void addExp(final int exp) {
         xp += exp;
     }
@@ -58,5 +63,9 @@ public final class Wizard extends Character {
     @Override
     public int getExp() {
         return xp;
+    }
+
+    @Override
+    public void addDamageovertime() {
     }
 }

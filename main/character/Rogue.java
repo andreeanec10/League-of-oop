@@ -46,13 +46,7 @@ public final class Rogue extends Character {
         return name + " " + pozx + " " + pozy;
     }
     public void isAttacked(final Character character, final char c) {
-        if (contor == 0 || contor > noroundsextradamage) {
             actualLife -= (character.attack(this, c));
-            contor = 0;
-        } else {
-            actualLife -= (character.attack(this, c) + this.overtimedamage);
-        }
-        contor += 1;
     }
 
     public float getBonus(final char c) {
@@ -130,13 +124,40 @@ public final class Rogue extends Character {
     }
 
     @Override
-    public void addExp(final
-                           int exp) {
+    public int attack(final Pyromancer pyromancer, final char c) {
+        float bonus = getBonus(c);
+        float attack1bonus = 1F;
+        if ((noAttacks == 1 || noAttacks % Constants.THREE == 1) && c == 'W') {
+            attack1bonus = 1.5F;
+        }
+        noAttacks += 1;
+        if (c == 'W') {
+            pyromancer.setNoroundsextradamage(Constants.SIX);
+        } else {
+            pyromancer.setNoroundsextradamage(Constants.THREE);
+        }
+        int attack1 = Math.round(Math.round(Constants.BACKSTAB * attack1bonus * bonus)
+                * Constants.BACKSTABMODP);
+        int attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODP);
+        pyromancer.setOvertimedamage(attack2);
+        return (attack1 + attack2);
+    }
+
+    @Override
+    public void addExp(final int exp) {
         xp += exp;
     }
 
     @Override
     public int getExp() {
         return xp;
+    }
+
+    @Override
+    public void addDamageovertime() {
+        if ( noroundsextradamage != 0) {
+            actualLife -= overtimedamage;
+            noroundsextradamage -= 1;
+        }
     }
 }

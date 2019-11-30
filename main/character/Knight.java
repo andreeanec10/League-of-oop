@@ -114,8 +114,21 @@ public final class Knight extends Character {
         }
         int attack1 = 0;
         int attack2 = 0;
-        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODK);
-        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODK);
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODR);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODR);
+        return (attack1 + attack2);
+    }
+
+    @Override
+    public int attack(Pyromancer pyromancer, char c) {
+        float bonus = getBonus(c);
+        if (pyromancer.getActualLife() <= Constants.LIFEPERCENT * pyromancer.getMaxLife()) {
+            return pyromancer.getActualLife();
+        }
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODP);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODP);
         return (attack1 + attack2);
     }
 
@@ -127,5 +140,13 @@ public final class Knight extends Character {
     @Override
     public int getExp() {
         return xp;
+    }
+
+    @Override
+    public void addDamageovertime() {
+        if ( noroundsextradamage != 0) {
+            actualLife -= overtimedamage;
+            noroundsextradamage -= 1;
+        }
     }
 }

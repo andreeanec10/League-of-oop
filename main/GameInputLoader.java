@@ -53,4 +53,18 @@ public final class GameInputLoader {
         return new GameInput(length, width, landsname, noheros, heroes, positions,
                 rounds, string);
     }
+
+    public void Write(String s1, String s2) {
+        try {
+            FileSystem f = new FileSystem(mInputPath, mOutputPath);
+            f.writeWord(s1);
+            f.writeNewLine();
+            f.writeWord(s2);
+            f.writeNewLine();
+            f.close();
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
 }
