@@ -9,7 +9,7 @@ public final class Map {
         map = new ArrayList[l];
         int contor = 0;
         for (int i = 0; i < l; i++) {
-            map[i] = new ArrayList<LandOnMap>(w);
+            map[i] = new ArrayList<>(w);
             for (int j = 0; j < w; j++) {
                 LandOnMap lan = new LandOnMap();
                 Lands land = LandFactory.getInstance()
@@ -25,13 +25,6 @@ public final class Map {
         return map;
     }
 
-//    public void addHeroOnMap(final int x, final int y) {
-//        map[x].get(y).addCharactersIn();
-//    }
-
-//    public void resetHeroesOnMap(final int x, final int y) {
-//        map[x].get(y).reset();
-//    }
     public LandOnMap getLandInfo(final int x, final int y) {
         return map[x].get(y);
     }

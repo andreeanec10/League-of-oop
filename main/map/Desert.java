@@ -8,16 +8,4 @@ public final class Desert extends Lands {
         return name;
     }
 
-    public void addCharactersIn() {
-        noplayers += 1;
-    }
-
-    public void reset() {
-        noplayers = 0;
-    }
-
-    public int getNoplayers() {
-        return noplayers;
-    }
-
 }

@@ -8,16 +8,4 @@ public final class Woods extends Lands {
         return name;
     }
 
-    public void addCharactersIn() {
-        noplayers += 1;
-    }
-
-    public void reset() {
-        noplayers = 0;
-    }
-
-    public int getNoplayers() {
-        return noplayers;
-    }
-
 }

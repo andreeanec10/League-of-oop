@@ -2,8 +2,6 @@ package main.character;
 
 import main.Constants;
 
-import java.util.zip.CheckedOutputStream;
-
 public final class Pyromancer extends Character {
     private char name = 'P';
     private int pozx;
@@ -77,6 +75,12 @@ public final class Pyromancer extends Character {
             default: return 0;
         }
     }
+
+    @Override
+    public int getOvertimeDamage() {
+        return overtimedamage;
+    }
+
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
@@ -128,7 +132,7 @@ public final class Pyromancer extends Character {
 
     @Override
     public void addDamageovertime() {
-        if ( noroundsextradamage != 0) {
+        if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
         }

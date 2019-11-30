@@ -1,10 +1,8 @@
 package main;
 
-import fileio.FileSystem;
 import main.character.Character;
 import main.character.Heroes;
 import main.map.Map;
-import fileio.FileSystem;
 
 final class Main {
     private Main() {
@@ -42,6 +40,6 @@ final class Main {
                 ch1.addExp(Math.max(0, Constants.TWOH - (ch1.getExp() - ch2.getExp())));
             }
         }
-        gameInputLoader.Write(ch1.toString(), ch2.toString());
+        gameInputLoader.write(ch1.toString(), ch2.toString());
     }
 }

@@ -14,6 +14,7 @@ public abstract class Character {
     public abstract void setIsNotAlive();
     public abstract void addExp(int exp);
     public abstract int getExp();
+    public abstract int getOvertimeDamage();
 
 
 

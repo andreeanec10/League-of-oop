@@ -59,11 +59,16 @@ public final class Rogue extends Character {
         }
     }
 
+    @Override
+    public int getOvertimeDamage() {
+        return overtimedamage;
+    }
+
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
         float attack1bonus = 1F;
         if ((noAttacks == 1 || noAttacks % Constants.THREE == 1) && c == 'W') {
-            attack1bonus = 1.5F;
+            attack1bonus = Constants.ROGUEADD;
         }
         noAttacks += 1;
         if (c == 'W') {
@@ -73,8 +78,11 @@ public final class Rogue extends Character {
         }
         int attack1 = Math.round(Math.round(Constants.BACKSTAB * attack1bonus * bonus)
                 * Constants.BACKSTABMODK);
-        int attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODK);
-        knight.setOvertimedamage(attack2);
+        int attack2 = 0;
+        if (knight.getOvertimeDamage() == 0) {
+            attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODK);
+            knight.setOvertimedamage(attack2);
+        }
         return (attack1 + attack2);
     }
 
@@ -91,7 +99,7 @@ public final class Rogue extends Character {
         float bonus = getBonus(c);
         float attack1bonus = 1F;
         if ((noAttacks == 1 || noAttacks % Constants.THREE == 1) && c == 'W') {
-            attack1bonus = 1.5F;
+            attack1bonus = Constants.ROGUEADD;
         }
         noAttacks += 1;
         if (c == 'W') {
@@ -101,8 +109,11 @@ public final class Rogue extends Character {
         }
         int attack1 = Math.round(Math.round(Constants.BACKSTAB * attack1bonus * bonus)
                 * Constants.BACKSTABMODR);
-        int attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODR);
-        rogue.setOvertimedamage(attack2);
+        int attack2 = 0;
+        //if (rogue.getOvertimeDamage() == 0) {
+            attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODR);
+            rogue.setOvertimedamage(attack2);
+       // }
         return (attack1 + attack2);
     }
 
@@ -128,7 +139,7 @@ public final class Rogue extends Character {
         float bonus = getBonus(c);
         float attack1bonus = 1F;
         if ((noAttacks == 1 || noAttacks % Constants.THREE == 1) && c == 'W') {
-            attack1bonus = 1.5F;
+            attack1bonus = Constants.ROGUEADD;
         }
         noAttacks += 1;
         if (c == 'W') {
@@ -138,8 +149,11 @@ public final class Rogue extends Character {
         }
         int attack1 = Math.round(Math.round(Constants.BACKSTAB * attack1bonus * bonus)
                 * Constants.BACKSTABMODP);
-        int attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODP);
-        pyromancer.setOvertimedamage(attack2);
+        int attack2 = 0;
+        if (pyromancer.getOvertimeDamage() == 0) {
+            attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODP);
+            pyromancer.setOvertimedamage(attack2);
+        }
         return (attack1 + attack2);
     }
 
@@ -155,7 +169,7 @@ public final class Rogue extends Character {
 
     @Override
     public void addDamageovertime() {
-        if ( noroundsextradamage != 0) {
+        if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
         }

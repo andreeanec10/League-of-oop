@@ -51,7 +51,7 @@ public final class Wizard extends Character {
     }
 
     @Override
-    public int attack(Pyromancer pyromancer, char c) {
+    public int attack(final Pyromancer pyromancer, final char c) {
         return 0;
     }
 
@@ -67,5 +67,10 @@ public final class Wizard extends Character {
 
     @Override
     public void addDamageovertime() {
+    }
+
+    @Override
+    public int getOvertimeDamage() {
+        return 0;
     }
 }

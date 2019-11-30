@@ -44,6 +44,11 @@ public final class Knight extends Character {
         this.noroundsextradamage = noroundsextradamage;
     }
 
+    @Override
+    public int getOvertimeDamage() {
+        return overtimedamage;
+    }
+
     public void setOvertimedamage(final int overtimedamage) {
         this.overtimedamage = overtimedamage;
     }
@@ -120,7 +125,7 @@ public final class Knight extends Character {
     }
 
     @Override
-    public int attack(Pyromancer pyromancer, char c) {
+    public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
         if (pyromancer.getActualLife() <= Constants.LIFEPERCENT * pyromancer.getMaxLife()) {
             return pyromancer.getActualLife();
@@ -144,7 +149,7 @@ public final class Knight extends Character {
 
     @Override
     public void addDamageovertime() {
-        if ( noroundsextradamage != 0) {
+        if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
         }

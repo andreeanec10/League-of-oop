@@ -50,11 +50,11 @@ public final class GameInputLoader {
             e1.printStackTrace();
         }
 
-        return new GameInput(length, width, landsname, noheros, heroes, positions,
+        return new GameInput(length, width, landsname, heroes, positions,
                 rounds, string);
     }
 
-    public void Write(String s1, String s2) {
+    public void write(final String s1, final String s2) {
         try {
             FileSystem f = new FileSystem(mInputPath, mOutputPath);
             f.writeWord(s1);
