@@ -33,6 +33,12 @@ public final class Wizard extends Character {
         return pozy;
     }
 
+    @Override
+    public void addToPoz(final int x, final int y) {
+        pozx += x;
+        pozy += y;
+    }
+
     public int getMaxLife() {
         return maxLife;
     }
@@ -54,6 +60,7 @@ public final class Wizard extends Character {
         return name + " " + pozx + " " + pozy;
     }
 
+    /*Wizard este atacat de charater*/
     public void isAttacked(final Character character, final char c) {
         actualLife -= character.attack(this, c);
     }
@@ -68,6 +75,8 @@ public final class Wizard extends Character {
         return actualLife;
     }
 
+    /*Wizard ataca knight*/
+    @Override
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
         float bonusgk = knight.getBonus(c);
@@ -82,6 +91,7 @@ public final class Wizard extends Character {
         return (attack1 + attack2);
     }
 
+    /*Wizard ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
@@ -101,6 +111,7 @@ public final class Wizard extends Character {
         return (attack1 + attack2);
     }
 
+    /*Wizard ataca pyromancer*/
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
@@ -116,6 +127,7 @@ public final class Wizard extends Character {
         return (attack1 + attack2);
     }
 
+    /*Wizard ataca wizard*/
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
@@ -123,7 +135,6 @@ public final class Wizard extends Character {
         attack1 = Math.round(Math.round(bonus * Constants.DRAINMODW * Constants.DRAIN
                 * Math.min(Constants.WIZARDADD * wizard.getMaxLife(),
                 wizard.getActualLife())));
-        System.out.println(attack1);
         return attack1;
     }
 
@@ -148,21 +159,11 @@ public final class Wizard extends Character {
     }
 
     @Override
-    public int getExp() {
-        return xp;
-    }
-
-    @Override
     public void addDamageovertime() {
         if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
         }
-    }
-
-    @Override
-    public int getOvertimeDamage() {
-        return 0;
     }
 
     public String toString() {
@@ -172,5 +173,20 @@ public final class Wizard extends Character {
             return s;
         }
         return name + " dead";
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public void updateLevel() {
+        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+        if (nlevel != level) {
+            level = nlevel;
+            maxLife = Constants.WIZARDLIFE + level * Constants.POWERPERLEVELWIZARD;
+            actualLife = maxLife;
+        }
     }
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class GameInput {
 
-    //private String landsName;
     private int nrHeroes;
     private Map map;
     private Heroes hHero;
@@ -16,7 +15,6 @@ public class GameInput {
 
     public GameInput() {
         nrHeroes = 0;
-        //   landsName = new String();
         map = null;
         hHero = null;
         moves = new ArrayList<>();
@@ -27,7 +25,6 @@ public class GameInput {
                      final ArrayList<String> h,
                      final ArrayList<Integer> poz, final int rounds,
                      final ArrayList<String> string) {
-        //    landsName = s;
         nrHeroes = h.size();
         map = new Map(length, width, s);
         hHero = new Heroes(nrHeroes, h, poz);
@@ -38,9 +35,6 @@ public class GameInput {
         }
     }
 
-    //    public final int getNrHeroes() {
-//        return nrHeroes;
-//    }
     public final Map getMap() {
         return map;
     }
@@ -56,10 +50,5 @@ public class GameInput {
     public final int getRounds() {
         return rounds;
     }
-////    public final boolean isValidInput() {
-////        boolean membersInstantiated = landsName != null && map != null && hHero != null;
-////        boolean membersNotEmpty = nrHeroes > 0;
-//
-//        return membersInstantiated && membersNotEmpty;
-//    }
+
 }

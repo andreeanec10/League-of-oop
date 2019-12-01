@@ -20,10 +20,6 @@ public final class Heroes {
         return heroes;
     }
 
-    public Character getOneHero(final int i) {
-        return heroes.get(i);
-    }
-
     public String toString() {
         String s = new String();
         for (int i = 0; i < heroes.size(); i++) {
@@ -31,4 +27,5 @@ public final class Heroes {
         }
         return s;
     }
+
 }

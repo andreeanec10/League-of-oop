@@ -12,6 +12,8 @@ public final class Constants {
     public static final int TWO = 2;
     public static final float ROGUEADD = 1.5F;
     public static final float WIZARDADD = 0.3F;
+    public static final int TFZ = 250;
+    public static final int FOURTY = 40;
 
     public static final int KNIGHTLIFE = 900;
     public static final int POWERPERLEVELKNIGHT = 80;

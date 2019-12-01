@@ -3,6 +3,8 @@ package main.character;
 public abstract class Character {
     public abstract void setPoz(int x, int y);
 
+    public abstract void addToPoz(int x, int y);
+
     public abstract String getInfo();
 
     public abstract int getPozx();
@@ -27,9 +29,9 @@ public abstract class Character {
 
     public abstract void addExp(int exp);
 
-    public abstract int getExp();
+    public abstract int getLevel();
 
-    public abstract int getOvertimeDamage();
+    public abstract void updateLevel();
 
 
 }

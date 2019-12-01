@@ -23,6 +23,12 @@ public final class Pyromancer extends Character {
         pozy = y;
     }
 
+    @Override
+    public void addToPoz(final int x, final int y) {
+        pozx += x;
+        pozy += y;
+    }
+
     public int getPozx() {
         return pozx;
     }
@@ -44,6 +50,7 @@ public final class Pyromancer extends Character {
         return name + " " + pozx + " " + pozy;
     }
 
+    /*Pyromancer este atacat de character*/
     public void isAttacked(final Character character, final char c) {
         actualLife -= (character.attack(this, c));
     }
@@ -81,11 +88,7 @@ public final class Pyromancer extends Character {
         }
     }
 
-    @Override
-    public int getOvertimeDamage() {
-        return overtimedamage;
-    }
-
+    /*Pyromancer ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
@@ -98,6 +101,7 @@ public final class Pyromancer extends Character {
         return (attack1 + attack2);
     }
 
+    /*Pyromancer ataca alt pyromancer*/
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
@@ -109,6 +113,7 @@ public final class Pyromancer extends Character {
         return (attack1 + attack2);
     }
 
+    /*Pyromancer ataca knight*/
     @Override
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
@@ -118,7 +123,7 @@ public final class Pyromancer extends Character {
         knight.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODK));
         return (attack1 + attack2);
     }
-
+    /*Pyromancer ataca wizard*/
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
@@ -136,11 +141,6 @@ public final class Pyromancer extends Character {
         xp += exp;
     }
 
-    @Override
-    public int getExp() {
-        return xp;
-    }
-
     public String toString() {
         if (isAlive == 1) {
             String s = new String();
@@ -155,6 +155,21 @@ public final class Pyromancer extends Character {
         if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
+        }
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public void updateLevel() {
+        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+        if (nlevel != level) {
+            level = nlevel;
+            maxLife = Constants.PYROMANCERLIFE + level * Constants.POWERPERLEVELPYROMANCER;
+            actualLife = maxLife;
         }
     }
 }

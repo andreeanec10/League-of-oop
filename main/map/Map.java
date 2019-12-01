@@ -21,6 +21,10 @@ public final class Map {
         }
     }
 
+    public int getMapWeight() {
+        return map[0].size();
+    }
+
     public ArrayList<LandOnMap>[] getMap() {
         return map;
     }

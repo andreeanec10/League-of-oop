@@ -24,6 +24,12 @@ public final class Knight extends Character {
         pozy = y;
     }
 
+    @Override
+    public void addToPoz(final int x, final int y) {
+        pozx += x;
+        pozy += y;
+    }
+
     public int getMaxLife() {
         return maxLife;
     }
@@ -44,11 +50,6 @@ public final class Knight extends Character {
         this.noroundsextradamage = noroundsextradamage;
     }
 
-    @Override
-    public int getOvertimeDamage() {
-        return overtimedamage;
-    }
-
     public void setOvertimedamage(final int overtimedamage) {
         this.overtimedamage = overtimedamage;
     }
@@ -58,6 +59,7 @@ public final class Knight extends Character {
         return name + " " + pozx + " " + pozy;
     }
 
+    /*Knight este atacat de character*/
     @Override
     public void isAttacked(final Character character, final char c) {
         actualLife -= (character.attack(this, c));
@@ -68,6 +70,7 @@ public final class Knight extends Character {
         isAlive = 0;
     }
 
+    /*Knight ataca knight*/
     @Override
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
@@ -110,6 +113,7 @@ public final class Knight extends Character {
         return actualLife;
     }
 
+    /*Knight ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
@@ -123,6 +127,7 @@ public final class Knight extends Character {
         return (attack1 + attack2);
     }
 
+    /*Knight ataca pyromancer*/
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
@@ -136,6 +141,7 @@ public final class Knight extends Character {
         return (attack1 + attack2);
     }
 
+    /*Knight ataca wizard*/
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
@@ -155,15 +161,25 @@ public final class Knight extends Character {
     }
 
     @Override
-    public int getExp() {
-        return xp;
-    }
-
-    @Override
     public void addDamageovertime() {
         if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
+        }
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public void updateLevel() {
+        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+        if (nlevel != level) {
+            level = nlevel;
+            maxLife = Constants.KNIGHTLIFE + level * Constants.POWERPERLEVELKNIGHT;
+            actualLife = maxLife;
         }
     }
 }

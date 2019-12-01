@@ -32,6 +32,20 @@ public final class Rogue extends Character {
         pozy = y;
     }
 
+    public void setOvertimedamage(final int dmg) {
+        overtimedamage = dmg;
+    }
+
+    public void setNoroundsextradamage(final int noroundsextradamage) {
+        this.noroundsextradamage = noroundsextradamage;
+    }
+
+    @Override
+    public void addToPoz(final int x, final int y) {
+        pozx += x;
+        pozy += y;
+    }
+
     public int getPozx() {
         return pozx;
     }
@@ -45,6 +59,8 @@ public final class Rogue extends Character {
         return name + " " + pozx + " " + pozy;
     }
 
+    /*Rogue este atacat de character*/
+    @Override
     public void isAttacked(final Character character, final char c) {
         actualLife -= (character.attack(this, c));
     }
@@ -64,11 +80,8 @@ public final class Rogue extends Character {
         }
     }
 
+    /*Rogue ataca knight*/
     @Override
-    public int getOvertimeDamage() {
-        return overtimedamage;
-    }
-
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
         float attack1bonus = 1F;
@@ -89,14 +102,7 @@ public final class Rogue extends Character {
         return (attack1 + attack2);
     }
 
-    public void setOvertimedamage(final int dmg) {
-        overtimedamage = dmg;
-    }
-
-    public void setNoroundsextradamage(final int noroundsextradamage) {
-        this.noroundsextradamage = noroundsextradamage;
-    }
-
+    /*Rogue ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
@@ -136,6 +142,7 @@ public final class Rogue extends Character {
         return name + " dead";
     }
 
+    /*Rogue ataca pyromancer*/
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
@@ -157,6 +164,7 @@ public final class Rogue extends Character {
         return (attack1 + attack2);
     }
 
+    /*Rogue ataca wizard*/
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
@@ -184,15 +192,24 @@ public final class Rogue extends Character {
     }
 
     @Override
-    public int getExp() {
-        return xp;
-    }
-
-    @Override
     public void addDamageovertime() {
         if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
+        }
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    public void updateLevel() {
+        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+        if (nlevel != level) {
+            level = nlevel;
+            maxLife = Constants.ROGUELIFE + level * Constants.POWERPERLEVELROGUE;
+            actualLife = maxLife;
         }
     }
 }

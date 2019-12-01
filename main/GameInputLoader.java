@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 
 import fileio.FileSystem;
+import main.character.Heroes;
 
 public final class GameInputLoader {
     private final String mInputPath;
@@ -29,16 +30,22 @@ public final class GameInputLoader {
             width = fs.nextInt();
             length = fs.nextInt();
 
-            for (int i = 0; i < width * length; ++i) {
-                landsname += fs.nextWord();
+            for (int i = 0; i < width; i++) {
+                String s = fs.nextWord();
+                for (int j = 0; j < length; j++) {
+                    landsname += s.charAt(j);
+                }
             }
 
-            noheros = fs.nextInt();
+            noheros = Integer.parseInt("" + fs.nextWord());
 
             for (int i = 0; i < noheros; i++) {
-                heroes.add(fs.nextWord());
-                positions.add(fs.nextInt());
-                positions.add(fs.nextInt());
+                String s = fs.nextWord();
+                heroes.add("" + s.charAt(0));
+                String s1 = fs.nextWord();
+                positions.add(Integer.parseInt("" + s1.charAt(0)));
+                String s2 = fs.nextWord();
+                positions.add(Integer.parseInt("" + s2.charAt(0)));
             }
             rounds = fs.nextInt();
             for (int i = 0; i < rounds; i++) {
@@ -54,13 +61,13 @@ public final class GameInputLoader {
                 rounds, string);
     }
 
-    public void write(final String s1, final String s2) {
+    public void write(final Heroes heroes) {
         try {
             FileSystem f = new FileSystem(mInputPath, mOutputPath);
-            f.writeWord(s1);
-            f.writeNewLine();
-            f.writeWord(s2);
-            f.writeNewLine();
+            for (int i = 0; i < heroes.getHeroes().size(); i++) {
+                f.writeWord(heroes.getHeroes().get(i).toString());
+                f.writeNewLine();
+            }
             f.close();
 
         } catch (Exception e1) {

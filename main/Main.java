@@ -15,32 +15,92 @@ final class Main {
         Map gameMap = game.getMap();
         Heroes gameHeroes = game.getHero();
         int nr = game.getRounds();
-        Character ch1 = gameHeroes.getOneHero(0);
-        Character ch2 = gameHeroes.getOneHero(1);
+        /*pentru fiecare runda se executa:*/
         for (int i = 0; i < nr; i++) {
-            ch1.addDamageovertime();
-            ch2.addDamageovertime();
-            if (ch1.getLife() <= 0) {
-                ch1.setIsNotAlive();
+            for (int j = 0; j < gameHeroes.getHeroes().size(); j++) {
+                int x = 0;
+                int y = 0;
+                /*se citeste miscarea care trebuie facute in continuare de
+                 * fiecare jucator in parte*/
+                switch (game.getMoves().get(i).charAt(j)) {
+                    case '_':
+                        break;
+                    case 'U':
+                        x -= 1;
+                        break;
+                    case 'D':
+                        x = 1;
+                        break;
+                    case 'L':
+                        y -= 1;
+                        break;
+                    case 'R':
+                        y = 1;
+                        break;
+                    default:
+                        break;
+                }
+                /*se adauga la pozitia actuala*/
+                gameHeroes.getHeroes().get(j).addToPoz(x, y);
             }
-            if (ch2.getLife() <= 0) {
-                ch2.setIsNotAlive();
+            /*daca eroul este in viata, i se actualizeaza pozitia pe harta*/
+            for (int j = 0; j < gameHeroes.getHeroes().size(); j++) {
+                Character c = gameHeroes.getHeroes().get(j);
+                if (c.getLife() > 0) {
+                    gameMap.getLandInfo(c.getPozx(), c.getPozy()).addHeroes(j);
+                }
             }
-            if (ch1.getLife() > 0 && ch2.getLife() > 0) {
-                ch1.isAttacked(ch2, gameMap.getLandInfo(0, 0).getLand().getName());
-                ch2.isAttacked(ch1, gameMap.getLandInfo(0, 0).getLand().getName());
-            } else {
-                break;
+            /*se verifica fiecare camp al hartii*/
+            for (int j = 0; j < gameMap.getMap().length; j++) {
+                for (int k = 0; k < gameMap.getMapWeight(); k++) {
+                    /*daca se gasesc 2 jucatori pe acelasi teren se lupta*/
+                    if (gameMap.getLandInfo(j, k).getNoheroesin() == Constants.TWO) {
+                        Character ch1 = gameHeroes.getHeroes()
+                                .get(gameMap.getLandInfo(j, k).getHeroI(0));
+                        Character ch2 = gameHeroes.getHeroes()
+                                .get(gameMap.getLandInfo(j, k).getHeroI(1));
+                        /*se aplica damageovertime*/
+                        ch1.addDamageovertime();
+                        ch2.addDamageovertime();
+                        if (ch1.getLife() <= 0) {
+                            ch1.setIsNotAlive();
+                        }
+                        if (ch2.getLife() <= 0) {
+                            ch2.setIsNotAlive();
+                        }
+                        /*daca supravietuiesc se lupta*/
+                        if (ch1.getLife() > 0 && ch2.getLife() > 0) {
+                            ch1.isAttacked(ch2, gameMap.getLandInfo(0, 0).getLand().getName());
+                            ch2.isAttacked(ch1, gameMap.getLandInfo(0, 0).getLand().getName());
+                        } else {
+                            break;
+                        }
+                        if (ch1.getLife() <= 0) {
+                            ch1.setIsNotAlive();
+                            ch2.addExp(Math.max(0, Constants.TWOH
+                                    - (ch2.getLevel() - ch1.getLevel()) * Constants.FOURTY));
+                            ch2.updateLevel();
+                        }
+                        if (ch2.getLife() <= 0) {
+                            ch2.setIsNotAlive();
+                            ch1.addExp(Math.max(0, Constants.TWOH
+                                    - (ch1.getLevel() - ch2.getLevel()) * Constants.FOURTY));
+                            ch1.updateLevel();
+                        }
+                    }
+                }
             }
-            if (ch1.getLife() <= 0) {
-                ch1.setIsNotAlive();
-                ch2.addExp(Math.max(0, Constants.TWOH - (ch2.getExp() - ch1.getExp())));
-            }
-            if (ch2.getLife() <= 0) {
-                ch2.setIsNotAlive();
-                ch1.addExp(Math.max(0, Constants.TWOH - (ch1.getExp() - ch2.getExp())));
+            /*se scot jucatorii de pe harta*/
+            for (int j = 0; j < gameMap.getMap().length; j++) {
+                for (int k = 0; k < gameMap.getMapWeight(); k++) {
+                    while (gameMap.getLandInfo(j, k).getNoheroesin() > 0) {
+                        gameMap.getLandInfo(j, k).resmoveHero(0);
+                    }
+                }
             }
         }
-        gameInputLoader.write(ch1.toString(), ch2.toString());
+        /*se afiseaza in fisier*/
+        gameInputLoader.write(gameHeroes);
     }
 }
+
