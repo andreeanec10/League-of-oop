@@ -15,6 +15,8 @@ public final class Wizard extends Character {
     private int isAlive = 1;
     private int norounds = 1;
     private boolean canmove = true;
+    private float bonusattack1 = Constants.DRAINDAMAGEADDEDPERLEVEL;
+    private float bonussattack2 = Constants.DEFLECTDAMAGEADDEDPERLEVEL;
 
 
     public char getName() {
@@ -110,6 +112,8 @@ public final class Wizard extends Character {
         int rawattack = Math.round(Constants.EXECUTEDAMAGE * bonusgk)
                 + Math.round(Constants.SLAMDAMAGE * bonusgk);
         attack2 = Math.round(Constants.DEFLECT * bonus * rawattack * Constants.DEFLECTMODK);
+        attack1 += attack1 * bonusattack1 * level;
+        attack2 += attack2 * bonussattack2 * level;
         return (attack1 + attack2);
     }
 
@@ -130,6 +134,8 @@ public final class Wizard extends Character {
         int rawattack = Math.round(Constants.BACKSTAB * bonus2 * bonusgk)
                 + Math.round(Constants.PARALYSIS * bonusgk);
         attack2 = Math.round(Constants.DEFLECT * bonus * rawattack * Constants.DEFLECTMODR);
+        attack1 += attack1 * bonusattack1 * level;
+        attack2 += attack2 * bonussattack2 * level;
         return (attack1 + attack2);
     }
 
@@ -146,6 +152,8 @@ public final class Wizard extends Character {
         int rawattack = Math.round(Constants.FIREBLAST * bonusgk)
                 + Math.round(Constants.IGNITE * bonusgk);
         attack2 = Math.round(Constants.DEFLECT * bonus * rawattack * Constants.DEFLECTMODP);
+        attack1 += attack1 * bonusattack1 * level;
+        attack2 += attack2 * bonussattack2 * level;
         return (attack1 + attack2);
     }
 
@@ -154,9 +162,12 @@ public final class Wizard extends Character {
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
         int attack1 = 0;
+        int attack2 = 0;
         attack1 = Math.round(Math.round(bonus * Constants.DRAINMODW * Constants.DRAIN
                 * Math.min(Constants.WIZARDADD * wizard.getMaxLife(),
                 wizard.getActualLife())));
+        attack1 += attack1 * bonusattack1 * level;
+        attack2 += attack2 * bonussattack2 * level;
         return attack1;
     }
 
@@ -204,11 +215,13 @@ public final class Wizard extends Character {
 
     @Override
     public void updateLevel() {
-        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
-        if (nlevel != level) {
-            level = nlevel;
-            maxLife = Constants.WIZARDLIFE + level * Constants.POWERPERLEVELWIZARD;
-            actualLife = maxLife;
+        if (isAlive == 1) {
+            int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+            if (nlevel != level) {
+                level = nlevel;
+                maxLife = Constants.WIZARDLIFE + level * Constants.POWERPERLEVELWIZARD;
+                actualLife = maxLife;
+            }
         }
     }
 }

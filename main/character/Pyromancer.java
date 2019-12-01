@@ -14,6 +14,10 @@ public final class Pyromancer extends Character {
     private int noroundsextradamage = 0;
     private int overtimedamage = 0;
     private boolean canmove = true;
+    private int bonusattack1 = Constants.FIREBLASTDAMAGEADDEDPERLEVEL;
+    private int bonusattack2 = Constants.IGNITEDAMAGEADDESPERLEVEL;
+    private int attack1 = Constants.FIREBLAST + level * bonusattack1;
+    private int attack2 = Constants.IGNITE + level * bonusattack2;
 
     public char getName() {
         return name;
@@ -108,10 +112,11 @@ public final class Pyromancer extends Character {
         float bonus = getBonus(c);
         float attack1bonus = 1F;
         rogue.setNoroundsextradamage(Constants.TWO);
-        int attack1 = Math.round(Math.round(Constants.FIREBLAST * attack1bonus * bonus)
+        attack1 = Math.round(Math.round(attack1 * attack1bonus * bonus)
                 * Constants.FIREBLASTMODR);
-        int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODR);
-        rogue.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODR));
+        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.IGNITEMODR);
+        rogue.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODR)
+        + level * Constants.THIRTY);
         return (attack1 + attack2);
     }
 
@@ -120,10 +125,11 @@ public final class Pyromancer extends Character {
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
         pyromancer.setNoroundsextradamage(Constants.TWO);
-        int attack1 = Math.round(Math.round(Constants.FIREBLAST * bonus)
+        attack1 = Math.round(Math.round(attack1 * bonus)
                 * Constants.FIREBLASTMODP);
-        int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODP);
-        pyromancer.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODP));
+        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.IGNITEMODP);
+        pyromancer.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODP)
+        + level * Constants.THIRTY);
         return (attack1 + attack2);
     }
 
@@ -132,9 +138,10 @@ public final class Pyromancer extends Character {
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
         knight.setNoroundsextradamage(Constants.TWO);
-        int attack1 = Math.round(Math.round(Constants.FIREBLAST * bonus) * Constants.FIREBLASTMODK);
-        int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODK);
-        knight.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODK));
+        attack1 = Math.round(Math.round(attack1 * bonus) * Constants.FIREBLASTMODK);
+        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.IGNITEMODK);
+        knight.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODK)
+        + Constants.THIRTY);
         return (attack1 + attack2);
     }
 
@@ -142,12 +149,12 @@ public final class Pyromancer extends Character {
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
-        float attack1bonus = 1F;
         wizard.setNoroundsextradamage(Constants.TWO);
-        int attack1 = Math.round(Math.round(Constants.FIREBLAST * attack1bonus * bonus)
+        attack1 = Math.round(Math.round(attack1 * bonus)
                 * Constants.FIREBLASTMODW);
-        int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODW);
-        wizard.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODW));
+        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.IGNITEMODW);
+        wizard.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODW)
+        + level + Constants.THIRTY);
         return (attack1 + attack2);
     }
 
@@ -188,11 +195,13 @@ public final class Pyromancer extends Character {
 
     @Override
     public void updateLevel() {
-        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
-        if (nlevel != level) {
-            level = nlevel;
-            maxLife = Constants.PYROMANCERLIFE + level * Constants.POWERPERLEVELPYROMANCER;
-            actualLife = maxLife;
+        if (isAlive == 1) {
+            int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+            if (nlevel != level) {
+                level = nlevel;
+                maxLife = Constants.PYROMANCERLIFE + level * Constants.POWERPERLEVELPYROMANCER;
+                actualLife = maxLife;
+            }
         }
     }
 }

@@ -15,6 +15,8 @@ public final class Rogue extends Character {
     private int isAlive = 1;
     private int noAttacks = 1;
     private boolean canmove = true;
+    private int bonusattack1 = Constants.BACKSTABDAMAGEADDEDPERLEVEL;
+    private int bonusattack2 = Constants.PARALYSISDAMAGEADDEDPERLEVEL;
 
     public char getName() {
         return name;
@@ -120,6 +122,8 @@ public final class Rogue extends Character {
                 * Constants.BACKSTABMODK);
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODK);
+        attack1 += bonusattack1 * level;
+        attack2 += bonusattack2 * level;
         knight.setOvertimedamage(attack2);
         knight.setCanmove(false);
         return (attack1 + attack2);
@@ -143,6 +147,8 @@ public final class Rogue extends Character {
                 * Constants.BACKSTABMODR);
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODR);
+        attack1 += bonusattack1 * level;
+        attack2 += bonusattack2 * level;
         rogue.setOvertimedamage(attack2);
         rogue.setCanmove(false);
         return (attack1 + attack2);
@@ -184,6 +190,8 @@ public final class Rogue extends Character {
                 * Constants.BACKSTABMODP);
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODP);
+        attack1 += bonusattack1 * level;
+        attack2 += bonusattack2 * level;
         pyromancer.setOvertimedamage(attack2);
         pyromancer.setCanmove(false);
         return (attack1 + attack2);
@@ -207,6 +215,8 @@ public final class Rogue extends Character {
                 * Constants.BACKSTABMODW);
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODW);
+        attack1 += bonusattack1 * level;
+        attack2 += bonusattack2 * level;
         wizard.setOvertimedamage(attack2);
         wizard.setCanmove(false);
         return (attack1 + attack2);
@@ -231,11 +241,13 @@ public final class Rogue extends Character {
     }
 
     public void updateLevel() {
-        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
-        if (nlevel != level) {
-            level = nlevel;
-            maxLife = Constants.ROGUELIFE + level * Constants.POWERPERLEVELROGUE;
-            actualLife = maxLife;
+        if (isAlive == 1) {
+            int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+            if (nlevel != level) {
+                level = nlevel;
+                maxLife = Constants.ROGUELIFE + level * Constants.POWERPERLEVELROGUE;
+                actualLife = maxLife;
+            }
         }
     }
 }
