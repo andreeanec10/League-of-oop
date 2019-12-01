@@ -16,11 +16,16 @@ final class LandFactory {
 
     Lands createLand(final char type) {
         switch (type) {
-            case 'L' : return new Land();
-            case 'V' : return new Volcanic();
-            case 'D' : return new Desert();
-            case 'W' : return new Woods();
-            default: return null;
+            case 'L':
+                return new Land();
+            case 'V':
+                return new Volcanic();
+            case 'D':
+                return new Desert();
+            case 'W':
+                return new Woods();
+            default:
+                return null;
         }
     }
 }

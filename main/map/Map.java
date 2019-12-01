@@ -34,7 +34,7 @@ public final class Map {
         String s = new String();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].size(); j++) {
-                s += (map[i].get(j).getLand().getName() +  " ");
+                s += (map[i].get(j).getLand().getName() + " ");
             }
         }
         return s;

@@ -16,11 +16,16 @@ final class CharacterFactory {
 
     Character createCharacter(final String type) {
         switch (type) {
-            case "K" : return new Knight();
-            case "R" : return new Rogue();
-            case "W" : return new Wizard();
-            case "P" : return new Pyromancer();
-            default : return null;
+            case "K":
+                return new Knight();
+            case "R":
+                return new Rogue();
+            case "W":
+                return new Wizard();
+            case "P":
+                return new Pyromancer();
+            default:
+                return null;
         }
     }
 }

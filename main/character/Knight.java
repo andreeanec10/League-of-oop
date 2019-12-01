@@ -11,9 +11,9 @@ public final class Knight extends Character {
     private int level = 0;
     private int xp = 0;
     private int isAlive = 1;
-    private int noroundsextradamage =  0;
+    private int noroundsextradamage = 0;
     private int overtimedamage = 0;
-    private int contor = 0;
+
 
     public char getName() {
         return name;
@@ -60,13 +60,7 @@ public final class Knight extends Character {
 
     @Override
     public void isAttacked(final Character character, final char c) {
-        if (contor == 0 || contor > noroundsextradamage) {
-            actualLife -= (character.attack(this, c));
-            contor = 0;
-        } else {
-            actualLife -= (character.attack(this, c) + this.overtimedamage);
-        }
-        contor += 1;
+        actualLife -= (character.attack(this, c));
     }
 
     @Override
@@ -83,17 +77,22 @@ public final class Knight extends Character {
         int attack1 = 0;
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODK);
-        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODK);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODK);
         return (attack1 + attack2);
     }
 
     public float getBonus(final char c) {
         switch (c) {
-            case 'L' : return Constants.KNIGHTLANDB;
-            case 'V' : return Constants.KNIGHTVOLCANICB;
-            case 'W' : return Constants.KNIGHTWOODSB;
-            case 'D' : return Constants.KNIGHTDESERTB;
-            default: return 0;
+            case 'L':
+                return Constants.KNIGHTLANDB;
+            case 'V':
+                return Constants.KNIGHTVOLCANICB;
+            case 'W':
+                return Constants.KNIGHTWOODSB;
+            case 'D':
+                return Constants.KNIGHTDESERTB;
+            default:
+                return 0;
         }
     }
 
@@ -120,7 +119,7 @@ public final class Knight extends Character {
         int attack1 = 0;
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODR);
-        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODR);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODR);
         return (attack1 + attack2);
     }
 
@@ -133,7 +132,20 @@ public final class Knight extends Character {
         int attack1 = 0;
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODP);
-        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE  * bonus) * Constants.SLAMMODP);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODP);
+        return (attack1 + attack2);
+    }
+
+    @Override
+    public int attack(final Wizard wizard, final char c) {
+        float bonus = getBonus(c);
+        if (wizard.getActualLife() <= Constants.LIFEPERCENT * wizard.getMaxLife()) {
+            return wizard.getActualLife();
+        }
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODW);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODW);
         return (attack1 + attack2);
     }
 

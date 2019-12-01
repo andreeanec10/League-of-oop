@@ -2,6 +2,7 @@ package main;
 
 import main.character.Heroes;
 import main.map.Map;
+
 import java.util.ArrayList;
 
 public class GameInput {
@@ -12,9 +13,10 @@ public class GameInput {
     private Heroes hHero;
     private ArrayList<String> moves;
     private int rounds;
+
     public GameInput() {
         nrHeroes = 0;
-     //   landsName = new String();
+        //   landsName = new String();
         map = null;
         hHero = null;
         moves = new ArrayList<>();
@@ -25,7 +27,7 @@ public class GameInput {
                      final ArrayList<String> h,
                      final ArrayList<Integer> poz, final int rounds,
                      final ArrayList<String> string) {
-    //    landsName = s;
+        //    landsName = s;
         nrHeroes = h.size();
         map = new Map(length, width, s);
         hHero = new Heroes(nrHeroes, h, poz);
@@ -35,18 +37,22 @@ public class GameInput {
             moves.add(string.get(i));
         }
     }
-//    public final int getNrHeroes() {
+
+    //    public final int getNrHeroes() {
 //        return nrHeroes;
 //    }
-    public  final Map getMap() {
+    public final Map getMap() {
         return map;
     }
+
     public final Heroes getHero() {
         return hHero;
     }
+
     public final ArrayList<String> getMoves() {
         return moves;
     }
+
     public final int getRounds() {
         return rounds;
     }

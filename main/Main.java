@@ -8,6 +8,7 @@ final class Main {
     private Main() {
         //just to pass checker
     }
+
     public static void main(final String[] args) {
         GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
         GameInput game = gameInputLoader.load();

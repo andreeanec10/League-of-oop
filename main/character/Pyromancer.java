@@ -11,9 +11,8 @@ public final class Pyromancer extends Character {
     private int actualLife = maxLife;
     private int level = 0;
     private int isAlive = 1;
-    private int noroundsextradamage =  0;
+    private int noroundsextradamage = 0;
     private int overtimedamage = 0;
-    private int contor;
 
     public char getName() {
         return name;
@@ -46,13 +45,14 @@ public final class Pyromancer extends Character {
     }
 
     public void isAttacked(final Character character, final char c) {
-            actualLife -= (character.attack(this, c));
+        actualLife -= (character.attack(this, c));
     }
 
     @Override
     public void setIsNotAlive() {
         isAlive = 0;
     }
+
     @Override
     public int getLife() {
         return actualLife;
@@ -68,11 +68,16 @@ public final class Pyromancer extends Character {
 
     public float getBonus(final char c) {
         switch (c) {
-            case 'L' : return Constants.PYROMANCERLANDB;
-            case 'V' : return Constants.PYROMANCERVOLCANICB;
-            case 'W' : return Constants.PYROMANCERWOODSB;
-            case 'D' : return Constants.PYROMANCERDESERTB;
-            default: return 0;
+            case 'L':
+                return Constants.PYROMANCERLANDB;
+            case 'V':
+                return Constants.PYROMANCERVOLCANICB;
+            case 'W':
+                return Constants.PYROMANCERWOODSB;
+            case 'D':
+                return Constants.PYROMANCERDESERTB;
+            default:
+                return 0;
         }
     }
 
@@ -92,6 +97,7 @@ public final class Pyromancer extends Character {
         rogue.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODR));
         return (attack1 + attack2);
     }
+
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
@@ -102,6 +108,7 @@ public final class Pyromancer extends Character {
         pyromancer.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODP));
         return (attack1 + attack2);
     }
+
     @Override
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
@@ -109,7 +116,20 @@ public final class Pyromancer extends Character {
         int attack1 = Math.round(Math.round(Constants.FIREBLAST * bonus) * Constants.FIREBLASTMODK);
         int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODK);
         knight.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODK));
-        return (attack1 + attack2);    }
+        return (attack1 + attack2);
+    }
+
+    @Override
+    public int attack(final Wizard wizard, final char c) {
+        float bonus = getBonus(c);
+        float attack1bonus = 1F;
+        wizard.setNoroundsextradamage(Constants.TWO);
+        int attack1 = Math.round(Math.round(Constants.FIREBLAST * attack1bonus * bonus)
+                * Constants.FIREBLASTMODW);
+        int attack2 = Math.round(Math.round(Constants.IGNITE * bonus) * Constants.IGNITEMODW);
+        wizard.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODW));
+        return (attack1 + attack2);
+    }
 
     @Override
     public void addExp(final int exp) {

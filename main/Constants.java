@@ -11,6 +11,7 @@ public final class Constants {
     public static final int FIFTY = 50;
     public static final int TWO = 2;
     public static final float ROGUEADD = 1.5F;
+    public static final float WIZARDADD = 0.3F;
 
     public static final int KNIGHTLIFE = 900;
     public static final int POWERPERLEVELKNIGHT = 80;
@@ -69,6 +70,25 @@ public final class Constants {
     public static final float PYROMANCERVOLCANICB = 1.25F;
     public static final float PYROMANCERWOODSB = 1F;
     public static final float PYROMANCERLANDB = 1F;
+
+    public static final int WIZARDLIFE = 400;
+    public static final int POWERPERLEVELWIZARD = 30;
+    public static final float DRAIN = 0.2F;
+    public static final float DRAINDAMAGEADDEDPERLEVEL = 0.05F;
+    public static final float DRAINMODR = 0.8F;
+    public static final float DRAINMODK = 1.2F;
+    public static final float DRAINMODP = 0.9F;
+    public static final float DRAINMODW = 1.05F;
+    public static final float DEFLECT = 0.35F;
+    public static final float DEFLECTDAMAGEADDEDPERLEVEL = 1.02F;
+    public static final float DEFLECTMODR = 1.2F;
+    public static final float DEFLECTMODK = 1.4F;
+    public static final float DEFLECTMODP = 1.3F;
+    //public static final float DEFLECTMODW = 0F;
+    public static final float WIZARDWOODSB = 1.0F;
+    public static final float WIZARDLANDB = 1.0F;
+    public static final float WIZARDVOLCANICB = 1.0F;
+    public static final float WIZARDDESERB = 1.1F;
 
 
 }

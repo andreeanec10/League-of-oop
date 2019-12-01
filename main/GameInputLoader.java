@@ -14,7 +14,7 @@ public final class GameInputLoader {
     }
 
     public GameInput load() {
-        String  landsname = new String();
+        String landsname = new String();
         int noheros = 0;
         int width = 0;
         int length = 0;

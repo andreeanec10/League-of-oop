@@ -19,9 +19,11 @@ public final class Heroes {
     public ArrayList<Character> getHeroes() {
         return heroes;
     }
+
     public Character getOneHero(final int i) {
         return heroes.get(i);
     }
+
     public String toString() {
         String s = new String();
         for (int i = 0; i < heroes.size(); i++) {
