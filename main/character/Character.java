@@ -21,6 +21,8 @@ public abstract class Character {
 
     public abstract int attack(Wizard wizard, char c);
 
+    public abstract boolean canwalk();
+
     public abstract void addDamageovertime();
 
     public abstract int getLife();
@@ -33,5 +35,6 @@ public abstract class Character {
 
     public abstract void updateLevel();
 
+    public abstract void decNotMove();
 
 }

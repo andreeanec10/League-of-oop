@@ -14,10 +14,27 @@ public final class Wizard extends Character {
     private int overtimedamage = 0;
     private int isAlive = 1;
     private int norounds = 1;
+    private boolean canmove = true;
 
 
     public char getName() {
         return name;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    @Override
+    public void decNotMove() {
+        noroundsextradamage -= 1;
+        if (noroundsextradamage == 0) {
+            canmove = true;
+        }
+    }
+
+    public void setCanmove(final boolean canmove) {
+        this.canmove = canmove;
     }
 
     public void setPoz(final int x, final int y) {
@@ -73,6 +90,11 @@ public final class Wizard extends Character {
     @Override
     public int getLife() {
         return actualLife;
+    }
+
+    @Override
+    public boolean canwalk() {
+        return canmove;
     }
 
     /*Wizard ataca knight*/

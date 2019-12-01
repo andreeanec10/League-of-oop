@@ -41,7 +41,12 @@ final class Main {
                         break;
                 }
                 /*se adauga la pozitia actuala*/
-                gameHeroes.getHeroes().get(j).addToPoz(x, y);
+                if (gameHeroes.getHeroes().get(j).canwalk()) {
+                    gameHeroes.getHeroes().get(j).addToPoz(x, y);
+                } else {
+                    gameHeroes.getHeroes().get(j).addToPoz(0, 0);
+                    gameHeroes.getHeroes().get(j).decNotMove();
+                }
             }
             /*daca eroul este in viata, i se actualizeaza pozitia pe harta*/
             for (int j = 0; j < gameHeroes.getHeroes().size(); j++) {

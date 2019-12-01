@@ -13,9 +13,18 @@ public final class Pyromancer extends Character {
     private int isAlive = 1;
     private int noroundsextradamage = 0;
     private int overtimedamage = 0;
+    private boolean canmove = true;
 
     public char getName() {
         return name;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    public void setCanmove(final boolean canmove) {
+        this.canmove = canmove;
     }
 
     public void setPoz(final int x, final int y) {
@@ -88,6 +97,11 @@ public final class Pyromancer extends Character {
         }
     }
 
+    @Override
+    public boolean canwalk() {
+        return canmove;
+    }
+
     /*Pyromancer ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
@@ -123,6 +137,7 @@ public final class Pyromancer extends Character {
         knight.setOvertimedamage(Math.round(Constants.FIFTY * Constants.IGNITEMODK));
         return (attack1 + attack2);
     }
+
     /*Pyromancer ataca wizard*/
     @Override
     public int attack(final Wizard wizard, final char c) {
@@ -155,6 +170,14 @@ public final class Pyromancer extends Character {
         if (noroundsextradamage != 0) {
             actualLife -= overtimedamage;
             noroundsextradamage -= 1;
+        }
+    }
+
+    @Override
+    public void decNotMove() {
+        noroundsextradamage -= 1;
+        if (noroundsextradamage == 0) {
+            canmove = true;
         }
     }
 

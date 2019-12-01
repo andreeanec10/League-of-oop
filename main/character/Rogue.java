@@ -14,9 +14,26 @@ public final class Rogue extends Character {
     private int overtimedamage = 0;
     private int isAlive = 1;
     private int noAttacks = 1;
+    private boolean canmove = true;
 
     public char getName() {
         return name;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    @Override
+    public void decNotMove() {
+        noroundsextradamage -= 1;
+        if (noroundsextradamage == 0) {
+            canmove = true;
+        }
+    }
+
+    public void setCanmove(final boolean canmove) {
+        this.canmove = canmove;
     }
 
     public int getActualLife() {
@@ -80,6 +97,11 @@ public final class Rogue extends Character {
         }
     }
 
+    @Override
+    public boolean canwalk() {
+        return canmove;
+    }
+
     /*Rogue ataca knight*/
     @Override
     public int attack(final Knight knight, final char c) {
@@ -99,6 +121,7 @@ public final class Rogue extends Character {
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODK);
         knight.setOvertimedamage(attack2);
+        knight.setCanmove(false);
         return (attack1 + attack2);
     }
 
@@ -121,6 +144,7 @@ public final class Rogue extends Character {
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODR);
         rogue.setOvertimedamage(attack2);
+        rogue.setCanmove(false);
         return (attack1 + attack2);
     }
 
@@ -161,6 +185,7 @@ public final class Rogue extends Character {
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODP);
         pyromancer.setOvertimedamage(attack2);
+        pyromancer.setCanmove(false);
         return (attack1 + attack2);
     }
 
@@ -183,6 +208,7 @@ public final class Rogue extends Character {
         int attack2 = 0;
         attack2 = Math.round(Math.round(Constants.PARALYSIS * bonus) * Constants.PARALYSISMODW);
         wizard.setOvertimedamage(attack2);
+        wizard.setCanmove(false);
         return (attack1 + attack2);
     }
 

@@ -13,10 +13,27 @@ public final class Knight extends Character {
     private int isAlive = 1;
     private int noroundsextradamage = 0;
     private int overtimedamage = 0;
+    private boolean canmove = true;
 
 
     public char getName() {
         return name;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
+
+    @Override
+    public void decNotMove() {
+        noroundsextradamage -= 1;
+        if (noroundsextradamage == 0) {
+            canmove = true;
+        }
+    }
+
+    public void setCanmove(final boolean canmove) {
+        this.canmove = canmove;
     }
 
     public void setPoz(final int x, final int y) {
@@ -70,20 +87,6 @@ public final class Knight extends Character {
         isAlive = 0;
     }
 
-    /*Knight ataca knight*/
-    @Override
-    public int attack(final Knight knight, final char c) {
-        float bonus = getBonus(c);
-        if (knight.getActualLife() <= Constants.LIFEPERCENT * knight.getMaxLife()) {
-            return knight.getActualLife();
-        }
-        int attack1 = 0;
-        int attack2 = 0;
-        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODK);
-        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODK);
-        return (attack1 + attack2);
-    }
-
     public float getBonus(final char c) {
         switch (c) {
             case 'L':
@@ -113,6 +116,27 @@ public final class Knight extends Character {
         return actualLife;
     }
 
+    @Override
+    public boolean canwalk() {
+        return canmove;
+    }
+
+    /*Knight ataca knight*/
+    @Override
+    public int attack(final Knight knight, final char c) {
+        float bonus = getBonus(c);
+        if (knight.getActualLife() <= Constants.LIFEPERCENT * knight.getMaxLife()) {
+            return knight.getActualLife();
+        }
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODK);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODK);
+        knight.setNoroundsextradamage(1);
+        knight.setCanmove(false);
+        return (attack1 + attack2);
+    }
+
     /*Knight ataca rogue*/
     @Override
     public int attack(final Rogue rogue, final char c) {
@@ -124,6 +148,8 @@ public final class Knight extends Character {
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODR);
         attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODR);
+        rogue.setNoroundsextradamage(1);
+        rogue.setCanmove(false);
         return (attack1 + attack2);
     }
 
@@ -138,6 +164,8 @@ public final class Knight extends Character {
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODP);
         attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODP);
+        pyromancer.setNoroundsextradamage(1);
+        pyromancer.setCanmove(false);
         return (attack1 + attack2);
     }
 
@@ -152,6 +180,8 @@ public final class Knight extends Character {
         int attack2 = 0;
         attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODW);
         attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODW);
+        wizard.setNoroundsextradamage(1);
+        wizard.setCanmove(false);
         return (attack1 + attack2);
     }
 
