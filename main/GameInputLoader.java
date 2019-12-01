@@ -42,10 +42,10 @@ public final class GameInputLoader {
             for (int i = 0; i < noheros; i++) {
                 String s = fs.nextWord();
                 heroes.add("" + s.charAt(0));
-                int s1 = fs.nextInt();
-                positions.add(s1);
-                int s2 = fs.nextInt();
-                positions.add(s2);
+                String s1 = fs.nextWord();
+                positions.add(Integer.parseInt("" + s1.charAt(0)));
+                String s2 = fs.nextWord();
+                positions.add(Integer.parseInt("" + s2.charAt(0)));
             }
             rounds = fs.nextInt();
             for (int i = 0; i < rounds; i++) {

@@ -14,7 +14,6 @@ public final class Constants {
     public static final float WIZARDADD = 0.3F;
     public static final int TFZ = 250;
     public static final int FOURTY = 40;
-    public static final int THIRTY = 30;
 
     public static final int KNIGHTLIFE = 900;
     public static final int POWERPERLEVELKNIGHT = 80;
@@ -83,7 +82,7 @@ public final class Constants {
     public static final float DRAINMODP = 0.9F;
     public static final float DRAINMODW = 1.05F;
     public static final float DEFLECT = 0.35F;
-    public static final float DEFLECTDAMAGEADDEDPERLEVEL = 0.02F;
+    public static final float DEFLECTDAMAGEADDEDPERLEVEL = 1.02F;
     public static final float DEFLECTMODR = 1.2F;
     public static final float DEFLECTMODK = 1.4F;
     public static final float DEFLECTMODP = 1.3F;

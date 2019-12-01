@@ -84,14 +84,14 @@ final class Main {
                             ch1.setIsNotAlive();
                             ch2.addExp(Math.max(0, Constants.TWOH
                                     - (ch2.getLevel() - ch1.getLevel()) * Constants.FOURTY));
+                            ch2.updateLevel();
                         }
                         if (ch2.getLife() <= 0) {
                             ch2.setIsNotAlive();
                             ch1.addExp(Math.max(0, Constants.TWOH
                                     - (ch1.getLevel() - ch2.getLevel()) * Constants.FOURTY));
+                            ch1.updateLevel();
                         }
-                        ch1.updateLevel();
-                        ch2.updateLevel();
                     }
                 }
             }

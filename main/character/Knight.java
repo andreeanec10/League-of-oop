@@ -14,10 +14,6 @@ public final class Knight extends Character {
     private int noroundsextradamage = 0;
     private int overtimedamage = 0;
     private boolean canmove = true;
-    private int bonusattack1 = Constants.EXECUTEDAMAGEADDEDPERLEVEL;
-    private int bonusattack2 = Constants.SLAMDAMAGE;
-    private int attack1 = Constants.EXECUTEDAMAGE + level * bonusattack1;
-    private int attack2 = Constants.SLAMDAMAGE + level * bonusattack2;
 
 
     public char getName() {
@@ -129,12 +125,13 @@ public final class Knight extends Character {
     @Override
     public int attack(final Knight knight, final char c) {
         float bonus = getBonus(c);
-        if (knight.getActualLife() <= (Constants.LIFEPERCENT + level * 0.01F)
-                * knight.getMaxLife()) {
+        if (knight.getActualLife() <= Constants.LIFEPERCENT * knight.getMaxLife()) {
             return knight.getActualLife();
         }
-        attack1 = Math.round(Math.round(attack1 * bonus) * Constants.EXECUTEMODK);
-        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.SLAMMODK);
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODK);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODK);
         knight.setNoroundsextradamage(1);
         knight.setCanmove(false);
         return (attack1 + attack2);
@@ -144,12 +141,13 @@ public final class Knight extends Character {
     @Override
     public int attack(final Rogue rogue, final char c) {
         float bonus = getBonus(c);
-        if (rogue.getActualLife() <= (Constants.LIFEPERCENT + level * 0.01F)
-                * rogue.getMaxLife()) {
+        if (rogue.getActualLife() <= Constants.LIFEPERCENT * rogue.getMaxLife()) {
             return rogue.getActualLife();
         }
-        attack1 = Math.round(Math.round(attack1 * bonus) * Constants.EXECUTEMODR);
-        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.SLAMMODR);
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODR);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODR);
         rogue.setNoroundsextradamage(1);
         rogue.setCanmove(false);
         return (attack1 + attack2);
@@ -159,12 +157,13 @@ public final class Knight extends Character {
     @Override
     public int attack(final Pyromancer pyromancer, final char c) {
         float bonus = getBonus(c);
-        if (pyromancer.getActualLife() <= (Constants.LIFEPERCENT + level * 0.01F)
-                * pyromancer.getMaxLife()) {
+        if (pyromancer.getActualLife() <= Constants.LIFEPERCENT * pyromancer.getMaxLife()) {
             return pyromancer.getActualLife();
         }
-        attack1 = Math.round(Math.round(attack1 * bonus) * Constants.EXECUTEMODP);
-        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.SLAMMODP);
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODP);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODP);
         pyromancer.setNoroundsextradamage(1);
         pyromancer.setCanmove(false);
         return (attack1 + attack2);
@@ -174,12 +173,13 @@ public final class Knight extends Character {
     @Override
     public int attack(final Wizard wizard, final char c) {
         float bonus = getBonus(c);
-        if (wizard.getActualLife() <= (Constants.LIFEPERCENT + level * 0.01F)
-                * wizard.getMaxLife()) {
+        if (wizard.getActualLife() <= Constants.LIFEPERCENT * wizard.getMaxLife()) {
             return wizard.getActualLife();
         }
-        attack1 = Math.round(Math.round(attack1 * bonus) * Constants.EXECUTEMODW);
-        attack2 = Math.round(Math.round(attack2 * bonus) * Constants.SLAMMODW);
+        int attack1 = 0;
+        int attack2 = 0;
+        attack1 = Math.round(Math.round(Constants.EXECUTEDAMAGE * bonus) * Constants.EXECUTEMODW);
+        attack2 = Math.round(Math.round(Constants.SLAMDAMAGE * bonus) * Constants.SLAMMODW);
         wizard.setNoroundsextradamage(1);
         wizard.setCanmove(false);
         return (attack1 + attack2);
@@ -205,13 +205,11 @@ public final class Knight extends Character {
 
     @Override
     public void updateLevel() {
-        if (isAlive == 1) {
-            int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
-            if (nlevel != level) {
-                level = nlevel;
-                maxLife = Constants.KNIGHTLIFE + level * Constants.POWERPERLEVELKNIGHT;
-                actualLife = maxLife;
-            }
+        int nlevel = (xp - Constants.TFZ) / Constants.FIFTY + 1;
+        if (nlevel != level) {
+            level = nlevel;
+            maxLife = Constants.KNIGHTLIFE + level * Constants.POWERPERLEVELKNIGHT;
+            actualLife = maxLife;
         }
     }
 }
